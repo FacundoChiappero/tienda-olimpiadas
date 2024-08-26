@@ -1,0 +1,117 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(135deg, #eeeeee, #cccccc, #777777, #444444);
+    background-size: 400% 400%;
+    animation: gradientBackground 15s ease infinite;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+h2 {
+    color: #222;
+    font-size: 26px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+.orders ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.orders li {
+    background-color: #fafafa;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.orders li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.orders li h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.orders li p {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.orders li ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.orders li ul li {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.order-status {
+    font-weight: bold;
+}
+
+nav {
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+    overflow: hidden;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+nav a {
+    color: #ecf0f1;
+    text-align: center;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline-block;
+    border-radius: 50px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+nav a:hover {
+    background-color: #2980b9;
+    color: #ecf0f1;
+}
+
+nav .right {
+    float: right;
+}
+
+nav .logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ecf0f1;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+nav a.active {
+    background-color: #27ae60;
+    color: white;
+}
