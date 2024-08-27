@@ -13,7 +13,6 @@ body {
     max-width: 1200px;
     margin: 50px auto;
     padding: 20px;
-    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -47,7 +46,6 @@ nav a {
     text-decoration: none;
     font-size: 16px;
     display: inline-block;
-    border-radius: 50px;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -91,11 +89,14 @@ p {
     transform: translateX(-50%);
 }
 
+i{
+    margin-right: 5px;
+}
+
+
 form input {
     width: calc(70% - 22px);
     padding: 10px;
-    border: none;
-    border-bottom: 2px solid #222;
     border-radius: 4px 4px 0 0;
     outline: none;
     display: block;

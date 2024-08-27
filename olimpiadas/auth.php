@@ -1,7 +1,7 @@
 <?php
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
-} // Asegúrate de que session_start() se llama solo una vez
+}
 
 include 'db.php';
 include 'functions.php';
@@ -11,13 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $username = trim($_POST['username']);
         $password = trim($_POST['password']);
 
-        // Validar y sanitizar datos
         if (!preg_match('/^[a-zA-Z0-9_]{3,20}$/', $username)) {
             $error = "El nombre de usuario contiene caracteres inválidos";
         } elseif (strlen($password) < 5) {
             $error = "La contraseña debe tener al menos 6 caracteres";
         } else {
-            // Consulta preparada
             $stmt = $conn->prepare("SELECT password FROM users WHERE username = ?");
             $stmt->bind_param("s", $username);
             $stmt->execute();
@@ -45,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $password = trim($_POST['password']);
         $confirm_password = trim($_POST['confirm_password']);
 
-        // Validar y sanitizar datos
         if (!preg_match('/^[a-zA-Z0-9_]{3,20}$/', $username)) {
             $error = "El nombre de usuario contiene caracteres inválidos";
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -55,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } elseif ($password !== $confirm_password) {
             $error = "Las contraseñas no coinciden";
         } else {
-            // Consulta preparada para verificar existencia
             $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? OR email = ?");
             $stmt->bind_param("ss", $username, $email);
             $stmt->execute();
@@ -66,7 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-                // Consulta preparada para insertar nuevo usuario
                 $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
                 $stmt->bind_param("sss", $username, $email, $hashed_password);
 
@@ -91,7 +86,6 @@ $conn->close();
     <title>Login/Registro</title>
     <link rel="stylesheet" href="Styles\log.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 </head>
 <body>
 <nav>

@@ -84,6 +84,10 @@ nav {
     margin-bottom: 20px;
 }
 
+i{
+    margin-right: 5px;
+}
+
 nav a {
     color: #ecf0f1;
     text-align: center;

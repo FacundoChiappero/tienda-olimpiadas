@@ -3,7 +3,6 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Función para obtener el ID de usuario por nombre de usuario
 function getUserIdByUsername($conn, $username) {
     $sql = "SELECT id FROM users WHERE username = ?";
     $stmt = $conn->prepare($sql);
@@ -18,9 +17,6 @@ function getUserIdByUsername($conn, $username) {
     }
 }
 
-// Agregar otras funciones aquí...
-
-// Crear un pedido en la base de datos
 function createOrder($conn, $userId, $total) {
     $sql = "INSERT INTO orders (user_id, total, status) VALUES (?, ?, 'En preparación')";
     $stmt = $conn->prepare($sql);
@@ -29,7 +25,6 @@ function createOrder($conn, $userId, $total) {
     return $stmt->insert_id;
 }
 
-// Agregar los productos al pedido
 function addOrderItems($conn, $orderId, $cart) {
     foreach ($cart as $item) {
         $product = getProductById($conn, $item['id']);
@@ -40,7 +35,6 @@ function addOrderItems($conn, $orderId, $cart) {
     }
 }
 
-// Obtener los pedidos de un usuario por ID
 function getOrdersByUserId($conn, $userId) {
     $sql = "SELECT * FROM orders WHERE user_id = ?";
     $stmt = $conn->prepare($sql);
@@ -49,7 +43,6 @@ function getOrdersByUserId($conn, $userId) {
     return $stmt->get_result();
 }
 
-// Obtener los productos de un pedido por ID de pedido
 function getOrderItems($conn, $orderId) {
     $sql = "SELECT * FROM order_items WHERE order_id = ?";
     $stmt = $conn->prepare($sql);
@@ -58,7 +51,6 @@ function getOrderItems($conn, $orderId) {
     return $stmt->get_result();
 }
 
-// Agregar producto al carrito (incrementa cantidad si ya existe)
 function addToCart($productId) {
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
@@ -71,7 +63,6 @@ function addToCart($productId) {
     }
 }
 
-// Eliminar o disminuir la cantidad de un producto del carrito
 function removeFromCart($productId) {
     if (isset($_SESSION['cart'][$productId])) {
         $_SESSION['cart'][$productId]['quantity'] -= 1;
@@ -81,14 +72,12 @@ function removeFromCart($productId) {
     }
 }
 
-// Obtener productos desde la base de datos
 function getProducts($conn) {
     $sql = "SELECT * FROM products";
     $result = $conn->query($sql);
     return $result;
 }
 
-// Obtener detalles del producto por ID
 function getProductById($conn, $id) {
     $sql = "SELECT * FROM products WHERE id = ?";
     $stmt = $conn->prepare($sql);
@@ -98,7 +87,6 @@ function getProductById($conn, $id) {
     return $result->fetch_assoc();
 }
 
-// Calcular el total del carrito
 function calculateCartTotal($conn) {
     $total = 0;
     if (isset($_SESSION['cart'])) {
@@ -111,7 +99,7 @@ function calculateCartTotal($conn) {
     }
     return $total;
 }
-// Actualizar el estado del pedido
+
 function updateOrderStatus($conn, $orderId, $status) {
     $sql = "UPDATE orders SET status = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
@@ -119,11 +107,10 @@ function updateOrderStatus($conn, $orderId, $status) {
     $stmt->execute();
     return $stmt->affected_rows > 0;
 }
-// Obtener todos los pedidos
+
 function getAllOrders($conn) {
     $sql = "SELECT * FROM orders";
     $result = $conn->query($sql);
     return $result;
 }
-
 ?>

@@ -38,54 +38,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Carrito</title>
-    <link rel="stylesheet" href="Styles\styles.css">
-    <link rel="stylesheet" href="Styles\checkout.css">
+    <link rel="stylesheet" href="Styles/styles.css">
+    <link rel="stylesheet" href="Styles/checkout.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 <nav>
-        <a href="index.php" class="logo">Tienda olimpiadas</a>
-        <a href="index.php" class="active"><i class="fas fa-home"></i>Inicio</a>
-        <?php if (isset($_SESSION['username'])): ?>
-            <a href="checkout.php"><i class="fas fa-shopping-cart"></i>Carrito</a>
-            <a href="orders.php"><i class="fas fa-box"></i>Mis Pedidos</a> <!-- Enlace para pedidos del usuario -->
-            <?php if ($_SESSION['username'] === 'admin'): ?>
-                <a href="admin_orders.php"><i class="fas fa-box"></i>Administrar Pedidos</a> <!-- Enlace para administración de pedidos -->
-            <?php endif; ?>
-            <a href="logout.php" class="right">Logout (<?php echo $_SESSION['username']; ?>)</a>
-        <?php else: ?>
-            <a href="auth.php" class="right">Login/Registro</a>
+    <a href="index.php" class="logo">Tienda olimpiadas</a>
+    <a href="index.php" class="active"><i class="fas fa-home"></i>Inicio</a>
+    <?php if (isset($_SESSION['username'])): ?>
+        <a href="checkout.php"><i class="fas fa-shopping-cart"></i>Carrito</a>
+        <a href="orders.php"><i class="fas fa-box"></i>Mis Pedidos</a>
+        <?php if ($_SESSION['username'] === 'admin'): ?>
+            <a href="admin_orders.php"><i class="fas fa-box"></i>Administrar Pedidos</a>
         <?php endif; ?>
-    </nav>
-    <div class="container">
-        <h1>Completar Compra</h1>
+        <a href="logout.php" class="right">Logout (<?php echo $_SESSION['username']; ?>)</a>
+    <?php else: ?>
+        <a href="auth.php" class="right">Login/Registro</a>
+    <?php endif; ?>
+</nav>
+<div class="container">
+    <h1>Completar Compra</h1>
 
-        <div class="cart">
-            <ul>
-                <h2>Productos en el Carrito</h2>
-                <?php
-                foreach ($_SESSION['cart'] as $item) {
-                    $product = getProductById($conn, $item['id']);
-                    echo "<li>" . $product['name'] . " - $" . $product['price'] . " x " . $item['quantity'] . "</li>";
-                }
-                echo "<h3>Total: $" . calculateCartTotal($conn) . "</h3>";
-                ?>
-            </ul>
-        </div>
-        <form method="POST" action="">
-            <h2>FORMULARIO DE ENVIO</h2>
-            <input type="text" name="name" placeholder="Apellido" required>
-            <input type="text" name="surname" placeholder="Nombre" required>
-            <input type="text" name="country" placeholder="País" required>
-            <input type="text" name="state" placeholder="Provincia" required>
-            <input type="text" name="city" placeholder="Ciudad" required>
-            <input type="number" name="postal_code" placeholder="Código Postal" required>
-            <input type="text" name="street" placeholder="Calle" required>
-            <input type="number" name="number" placeholder="Número" required>
-            <input type="number" name="apartment" placeholder="Departamento (Opcional)">
-            <input type="number" name="floor" placeholder="Piso (Opcional)">
-            <button type="submit">Realizar Pedido</button>
-        </form>
+    <div class="cart">
+        <h2>Productos en el Carrito</h2>
+        <ul>
+            <?php
+            foreach ($_SESSION['cart'] as $item) {
+                $product = getProductById($conn, $item['id']);
+                echo "<li>" . $product['name'] . " - $" . $product['price'] . " x " . $item['quantity'] . "</li>";
+            }
+            ?>
+        </ul>
+        <h3>Total: $<?php echo calculateCartTotal($conn); ?></h3>
     </div>
+
+    <form method="POST" action="">
+        <h2>Formulario de Envío</h2>
+        <input type="text" name="name" placeholder="Apellido" required>
+        <input type="text" name="surname" placeholder="Nombre" required>
+        <input type="text" name="country" placeholder="País" required>
+        <input type="text" name="state" placeholder="Provincia" required>
+        <input type="text" name="city" placeholder="Ciudad" required>
+        <input type="number" name="postal_code" placeholder="Código Postal" required>
+        <input type="text" name="street" placeholder="Calle" required>
+        <input type="number" name="number" placeholder="Número" required>
+        <input type="number" name="apartment" placeholder="Departamento (Opcional)">
+        <input type="number" name="floor" placeholder="Piso (Opcional)">
+        <button type="submit">Realizar Pedido</button>
+    </form>
+</div>
 </body>
 </html>

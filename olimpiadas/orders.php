@@ -2,7 +2,6 @@
 include 'db.php';
 include 'functions.php';
 
-// Iniciar sesión solo si no está ya activa
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -41,9 +40,9 @@ if (isset($_SESSION['username'])) {
         <a href="index.php" class="active"><i class="fas fa-home"></i>Inicio</a>
         <?php if (isset($_SESSION['username'])): ?>
             <a href="checkout.php"><i class="fas fa-shopping-cart"></i>Carrito</a>
-            <a href="orders.php"><i class="fas fa-box"></i>Mis Pedidos</a> <!-- Enlace para pedidos del usuario -->
+            <a href="orders.php"><i class="fas fa-box"></i>Mis Pedidos</a>
             <?php if ($_SESSION['username'] === 'admin'): ?>
-                <a href="admin_orders.php"><i class="fas fa-box"></i>Administrar Pedidos</a> <!-- Enlace para administración de pedidos -->
+                <a href="admin_orders.php"><i class="fas fa-box"></i>Administrar Pedidos</a> 
             <?php endif; ?>
             <a href="logout.php" class="right">Logout (<?php echo $_SESSION['username']; ?>)</a>
         <?php else: ?>
